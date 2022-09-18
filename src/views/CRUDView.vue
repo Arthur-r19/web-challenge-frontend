@@ -4,7 +4,6 @@
       <v-col cols="4">
         <h1>Gerenciar Palestras</h1>
       </v-col>
-
       <v-col COLS="8">
         <v-row class="align-center ma-0">
           <v-text-field
@@ -12,13 +11,13 @@
             hide-details="true"
             prepend-inner-icon="mdi-plus"
             v-model="lectureName"
-            color="black"
+            color="rgb(118, 118, 118)"
             label="Título da Palestra"
             class="mr-3 rounded-lg"
           ></v-text-field>
           <v-btn
             outlined
-            color="black"
+            color="rgb(118, 118, 118)"
             class="mr-3 rounded-lg"
             @click.stop="addLecture()"
           >
@@ -26,7 +25,7 @@
           </v-btn>
           <v-btn
             outlined
-            color="black"
+            color="rgb(118, 118, 118)"
             class="mr-3 rounded-lg"
             @click.stop="$refs.input1.click()"
           >
@@ -41,30 +40,58 @@
         </v-row>
       </v-col>
     </v-row>
-    <v-divider class="my-2"></v-divider>
+    <v-divider class="my-4"></v-divider>
     <v-col
       ><v-row>
         <v-card
-          class="mx-1 mb-1"
+          outlined
+          class="mx-1 mb-2"
           v-for="lecture in lectures"
           :key="lecture.id"
           width="224"
-          height="120"
+          height="124"
         >
           <v-col class="pa-0 align-end">
-            <v-card-subtitle fill-height class="pa-2">
-              {{ lecture.name }}
-            </v-card-subtitle>
-
-            <v-divider></v-divider>
-            <v-card-actions class="pa-1 justify-end">
-              <v-btn icon x-small>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-              <v-btn icon x-small @click.stop="deleteLecture(lecture.id)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </v-card-actions>
+            <v-row min-height="200" class="ma-0">
+              <v-col class="pa-2 pb-0">
+                <div style="min-height: 80px">
+                  <span
+                    class="text-subtitle-2"
+                    v-if="lecture.name.length < 70"
+                    >{{ lecture.name }}</span
+                  >
+                  <span class="text-subtitle-2" v-else>{{
+                    lecture.name.substring(0, 70) + "..."
+                  }}</span>
+                </div>
+              </v-col>
+            </v-row>
+            <v-divider class="my-1"></v-divider>
+            <v-col class="ma-0">
+              <v-row class="">
+                <v-col>
+                  <v-row class="justify-start">
+                    <v-btn class="ml-2" depressed x-small>
+                      Editar
+                      <v-icon small color="green">mdi-pencil</v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+                <v-col>
+                  <v-row class="justify-end">
+                    <v-btn
+                      class="mr-2"
+                      depressed
+                      x-small
+                      @click.stop="deleteLecture(lecture.id)"
+                    >
+                      Excluir
+                      <v-icon small color="red">mdi-delete</v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-col>
           </v-col>
         </v-card>
       </v-row></v-col
@@ -129,7 +156,7 @@ export default {
   max-height: 40px;
 }
 .v-text-field--enclosed .v-input__prepend-inner {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 .v-text-field--outlined .v-label {
   top: 10px;

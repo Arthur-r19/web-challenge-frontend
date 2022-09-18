@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="primary" dark>
+  <v-app-bar app color="light-blue darken-3" dark>
     <v-row class="justify-center">
       <v-btn icon :to="{ name: 'lectures' }">
         <v-icon>mdi-human-male-board</v-icon></v-btn
