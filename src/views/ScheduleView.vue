@@ -9,7 +9,7 @@
       >
       <v-row v-for="lecture in track.lectures" :key="lecture.id">
         <v-col class="ma-0 pa-1" cols="1"
-          ><span>{{ lecture.start_time.substring(11, 16) }}</span></v-col
+          ><span>{{ lecture.start_time }}</span></v-col
         >
         <v-col class="ma-0 pa-1" cols="11"
           ><v-card flat min-width="100%">
