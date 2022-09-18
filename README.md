@@ -1,4 +1,4 @@
-# web-challenge-frontend
+# Web Coding Challenge [Frontend]
 
 ## Project setup
 ```
