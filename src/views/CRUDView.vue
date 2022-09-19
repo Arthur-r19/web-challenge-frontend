@@ -10,7 +10,7 @@
             outlined
             hide-details="true"
             prepend-inner-icon="mdi-plus"
-            v-model="lectureName"
+            v-model="newLectureName"
             color="rgb(118, 118, 118)"
             label="Título da Palestra"
             class="mr-3 rounded-lg"
@@ -71,9 +71,16 @@
               <v-row class="">
                 <v-col>
                   <v-row class="justify-start">
-                    <v-btn class="ml-2" depressed x-small>
+                    <v-btn
+                      class="ml-2"
+                      depressed
+                      x-small
+                      @click.stop="editLecture(lecture)"
+                    >
                       Editar
-                      <v-icon small color="green">mdi-pencil</v-icon>
+                      <v-icon small color="green" class="ml-1"
+                        >mdi-pencil</v-icon
+                      >
                     </v-btn>
                   </v-row>
                 </v-col>
@@ -86,7 +93,7 @@
                       @click.stop="deleteLecture(lecture.id)"
                     >
                       Excluir
-                      <v-icon small color="red">mdi-delete</v-icon>
+                      <v-icon small color="red" class="ml-1">mdi-delete</v-icon>
                     </v-btn>
                   </v-row>
                 </v-col>
@@ -96,17 +103,26 @@
         </v-card>
       </v-row></v-col
     >
+    <edit-dialog
+      :show.sync="dialog"
+      :lecture.sync="selectedLecture"
+      @updated="getLectures()"
+    ></edit-dialog>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import EditDialog from "@/components/crud/EditDialog.vue";
 
 export default {
   name: "CRUDView",
+  components: { EditDialog },
   data: () => ({
     lectures: [],
-    lectureName: "",
+    newLectureName: "",
+    dialog: false,
+    selectedLecture: {},
   }),
   created() {
     this.getLectures();
@@ -117,19 +133,19 @@ export default {
         this.lectures = response.data;
       });
     },
+    editLecture(lecture) {
+      this.selectedLecture = lecture;
+      this.dialog = true;
+    },
     deleteLecture(id) {
-      axios
-        .delete(`http://localhost:3000/lectures/${id}`, {
-          lecture: { name: this.lectureName },
-        })
-        .then(() => {
-          this.getLectures();
-        });
+      axios.delete(`http://localhost:3000/lectures/${id}`).then(() => {
+        this.getLectures();
+      });
     },
     addLecture() {
       axios
         .post("http://localhost:3000/lectures", {
-          lecture: { name: this.lectureName },
+          lecture: { name: this.newLectureName },
         })
         .then(() => {
           this.getLectures();
