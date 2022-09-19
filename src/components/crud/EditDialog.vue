@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>
         <span class="text-h5"
-          >Editar Palestra #{{ lecture.id }} {{ show }}</span
+          >Editar Palestra</span
         >
       </v-card-title>
       <v-card-text>
