@@ -1,24 +1,30 @@
-# web-challenge-frontend
+# Web Coding Challenge [Frontend]
+Frontend application for schedule and manage lectures for a event. Before setting this up, you need to setup the API that is used here: [Web Coding Challenge [API]](https://github.com/Arthur-r19/web-challenge-api/tree/develop)
 
-## Project setup
+
+## Prerequisites
+- Vue 2.7.10
+
+
+## Dependencies
+- Node 16.14.0
+- npm 8.13.2
+- Axios 0.27.2
+- Vue-router 3.6.5
+- Vuetify 2.6.10
+
+## Setup
+### 1. Clone this repository
+```
+git clone git@github.com:Arthur-r19/web-challenge-frontend.git
+```
+### 2. Install dependencies
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 3. Start server
 ```
-npm run serve
+vue serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Access [http:/localhost:8080/](http:/localhost:8080/) to use the application
