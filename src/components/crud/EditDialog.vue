@@ -2,9 +2,7 @@
   <v-dialog :value="show" persistent max-width="600px">
     <v-card>
       <v-card-title>
-        <span class="text-h5"
-          >Editar Palestra</span
-        >
+        <span class="text-h5">Editar Palestra</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -39,17 +37,16 @@
 import axios from "axios";
 export default {
   name: "EditDialog",
-  data: () => ({
-  }),
+  data: () => ({}),
   props: ["show", "lecture"],
   computed: {
     name: {
-      get(){
+      get() {
         return this.lecture.name;
       },
-      set(val){
-        this.$emit('update:lecture', {...this.lecture, name: val})
-      }
+      set(val) {
+        this.$emit("update:lecture", { ...this.lecture, name: val });
+      },
     },
   },
   methods: {
@@ -61,6 +58,9 @@ export default {
         .then(() => {
           this.$emit("updated");
           this.closeDialog();
+        })
+        .catch((err) => {
+          this.$emit("error", err.response.data, "error");
         });
     },
     closeDialog() {
