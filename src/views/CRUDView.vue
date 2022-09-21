@@ -107,7 +107,17 @@
       :show.sync="dialog"
       :lecture.sync="selectedLecture"
       @updated="getLectures()"
+      @error="setAlert"
     ></edit-dialog>
+    <v-snackbar top :color="alert.type" v-model="alert.enabled" :timeout="4000">
+      {{ alert.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn text small v-bind="attrs" @click="alert.enabled = false">
+          Fechar
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -123,6 +133,12 @@ export default {
     newLectureName: "",
     dialog: false,
     selectedLecture: {},
+    alert: {
+      text: "Alert!",
+      type: "error",
+      enabled: false,
+    },
+    info: {},
   }),
   created() {
     this.getLectures();
@@ -137,10 +153,23 @@ export default {
       this.selectedLecture = lecture;
       this.dialog = true;
     },
+    setAlert(data, type) {
+      const keys = Object.keys(data);
+      this.alert = {
+        text: `${keys[0]} ${data[keys[0]][0]}`,
+        type: type,
+        enabled: true,
+      };
+    },
     deleteLecture(id) {
-      axios.delete(`http://localhost:3000/lectures/${id}`).then(() => {
-        this.getLectures();
-      });
+      axios
+        .delete(`http://localhost:3000/lectures/${id}`)
+        .then(() => {
+          this.getLectures();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     addLecture() {
       axios
@@ -149,6 +178,9 @@ export default {
         })
         .then(() => {
           this.getLectures();
+        })
+        .catch((err) => {
+          this.setAlert(err.response.data, "error");
         });
     },
     uploadFile(event) {
@@ -161,6 +193,9 @@ export default {
           if (response.status == 201) {
             this.$router.push({ name: "schedule" });
           }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
@@ -182,5 +217,9 @@ export default {
 .v-btn:not(.v-btn--round).v-size--default {
   height: 40px;
   min-width: 40px;
+}
+.theme--light.v-sheet--outlined:hover {
+  border: thin solid #0277bd;
+  background-color: #e1f5fe;
 }
 </style>
