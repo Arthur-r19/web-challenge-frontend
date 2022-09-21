@@ -7,6 +7,8 @@ Frontend application for schedule and manage lectures for a event. Before settin
 
 
 ## Dependencies
+- Node 16.14.0
+- npm 8.13.2
 - Axios 0.27.2
 - Vue-router 3.6.5
 - Vuetify 2.6.10
